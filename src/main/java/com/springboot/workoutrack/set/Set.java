@@ -1,6 +1,9 @@
 package com.springboot.workoutrack.set;
 
+import com.springboot.workoutrack.exercise.Exercise;
 import jakarta.persistence.*;
+
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "set")
@@ -10,11 +13,14 @@ public class Set {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "set_sequence")
     private Long id;
     private int repetition;
-
     private float weight;
-    private int rest;
+    private LocalTime rest;
+    @ManyToOne
+    @JoinColumn(name = "exercise_id")
+    private Exercise exercise;
 
-    public Set(int repetition, int rest, float weight) {
+
+    public Set(int repetition, LocalTime rest, float weight) {
         this.repetition = repetition;
         this.rest = rest;
         this.weight = weight;
@@ -24,7 +30,7 @@ public class Set {
     }
 
 
-    public Set(Long id, int repetition, int rest, float weight) {
+    public Set(Long id, int repetition, LocalTime rest, float weight) {
         this.id = id;
         this.repetition = repetition;
         this.rest = rest;
@@ -47,7 +53,7 @@ public class Set {
         return repetition;
     }
 
-    public int getRest() {
+    public LocalTime getRest() {
         return rest;
     }
 
@@ -59,7 +65,7 @@ public class Set {
         this.repetition = repetition;
     }
 
-    public void setRest(int rest) {
+    public void setRest(LocalTime rest) {
         this.rest = rest;
     }
 

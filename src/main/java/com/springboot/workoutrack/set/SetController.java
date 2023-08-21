@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.springboot.workoutrack.utils.Constant.apiPrefix;
+
 @RestController
-@RequestMapping(path = "api/v1/sets")
+@RequestMapping(path = apiPrefix + "sets")
 public class SetController {
     private final SetService setService;
 
