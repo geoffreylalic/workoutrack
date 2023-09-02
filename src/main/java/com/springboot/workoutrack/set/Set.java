@@ -9,14 +9,12 @@ import java.time.LocalTime;
 @Table(name = "set")
 public class Set {
     @Id
-    @SequenceGenerator(name = "set_sequence", sequenceName = "set_sequence")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "set_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private int repetition;
     private float weight;
     private LocalTime rest;
     @ManyToOne
-    @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
 

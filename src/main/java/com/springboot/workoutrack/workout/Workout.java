@@ -11,13 +11,14 @@ import java.util.List;
 @Table(name = "workout")
 public class Workout {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String createdBy; // todo: manage user
     private LocalDateTime createdAt;
-    @OneToMany
+    @OneToMany(mappedBy = "workout")
     private List<Exercise> exercises;
-    @OneToMany
+    @OneToMany(mappedBy = "workout")
     private List<History> histories;
 
     public Workout(Long id, String name, String createdBy, LocalDateTime createdAt) {

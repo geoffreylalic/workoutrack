@@ -10,13 +10,13 @@ import java.util.List;
 @Table(name = "exercise")
 public class Exercise {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String target_muscle;
-    @OneToMany
+    @OneToMany(mappedBy = "exercise")
     private List<Set> sets;
     @ManyToOne
-    @JoinColumn(name = "workout_id")
     private Workout workout;
 
     public Exercise(Long id, String name, String target_muscle) {

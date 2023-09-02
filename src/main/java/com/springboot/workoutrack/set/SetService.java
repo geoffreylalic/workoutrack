@@ -3,6 +3,7 @@ package com.springboot.workoutrack.set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,6 +16,14 @@ public class SetService {
     }
 
     public List<Set> getSets() {
-        return setRepository.findAll();
+        List<Set> sets = setRepository.findAll();
+        if (sets.isEmpty()) {
+            return new ArrayList<Set>();
+        }
+        return sets;
+    }
+
+    public Set createSet(Set set) {
+        return setRepository.save(set);
     }
 }
