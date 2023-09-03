@@ -2,10 +2,12 @@ package com.springboot.workoutrack.set;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.lang.Boolean.TRUE;
 
@@ -13,26 +15,25 @@ import static java.lang.Boolean.TRUE;
 @Transactional
 public class SetService {
     private final SetRepository setRepository;
+    private final SetDTOMapper setDTOMapper;
 
     @Autowired
-    public SetService(SetRepository setRepository) {
+    public SetService(SetRepository setRepository, SetDTOMapper setDTOMapper) {
         this.setRepository = setRepository;
+        this.setDTOMapper = setDTOMapper;
     }
 
-    public List<Set> getSets() {
-        List<Set> sets = setRepository.findAll();
-        if (sets.isEmpty()) {
-            return new ArrayList<Set>();
-        }
-        return sets;
+    public List<SetDTO> getSets() {
+        return setRepository.findAll().stream().map(setDTOMapper).toList();
     }
 
-    public Set getSetById(Long id) {
-        return setRepository.getById(id);
+    public SetDTO getSetById(Long id) {
+        Set set = setRepository.getReferenceById(id);
+        return this.setDTOMapper.apply(set);
     }
 
-    public Set createSet(Set set) {
-        return setRepository.save(set);
+    public SetDTO createSet(Set set) {
+        return this.setDTOMapper.apply(setRepository.save(set));
     }
 
     public Boolean deleteById(Long id) {
@@ -43,4 +44,5 @@ public class SetService {
     public Set save(Set set) {
         return setRepository.save(set);
     }
+
 }
