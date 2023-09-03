@@ -39,7 +39,7 @@ public class SetController {
 
     @PatchMapping(path = "/{id}")
     public SetDTO updateSet(@PathVariable(value = "id") Long id, @RequestBody Set set) {
-        return setService.getSetById(id);
+        return setService.updateSetById(id, set);
     }
 
 }

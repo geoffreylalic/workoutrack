@@ -41,8 +41,12 @@ public class SetService {
         return TRUE;
     }
 
-    public Set save(Set set) {
-        return setRepository.save(set);
+    public SetDTO updateSetById(Long id, Set newSet){
+        Set set = setRepository.getReferenceById(id);
+        set.setRepetition(newSet.getRepetition());
+        set.setRest(newSet.getRest());
+        set.setWeight(newSet.getWeight());
+        return this.setDTOMapper.apply(setRepository.save(set));
     }
 
 }
