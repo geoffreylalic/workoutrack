@@ -1,9 +1,12 @@
 package com.springboot.workoutrack.set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.springboot.workoutrack.utils.Constant.apiPrefix;
 
@@ -18,28 +21,28 @@ public class SetController {
     }
 
     @GetMapping()
-    public List<SetDTO> getSet() {
-        return setService.getSets();
+    public ResponseEntity<List<SetDTO>> getSet() {
+        return ResponseEntity.ok(setService.getSets());
     }
 
     @PostMapping()
-    public SetDTO createSet(@RequestBody Set set) {
-        return setService.createSet(set);
+    public ResponseEntity<SetDTO> createSet(@RequestBody Set set) {
+        return ResponseEntity.ok(setService.createSet(set));
     }
 
     @GetMapping(path = "/{id}")
-    public SetDTO getSetById(@PathVariable(value = "id") Long id) {
-        return setService.getSetById(id);
+    public ResponseEntity<SetDTO> getSetById(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.ok(setService.getSetById(id));
     }
 
     @DeleteMapping(path = "/{id}")
-    public Boolean deleteSet(@PathVariable(value = "id") Long id) {
-        return setService.deleteById(id);
+    public ResponseEntity<Boolean> deleteSet(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.ok(setService.deleteById(id));
     }
 
     @PatchMapping(path = "/{id}")
-    public SetDTO updateSet(@PathVariable(value = "id") Long id, @RequestBody Set set) {
-        return setService.updateSetById(id, set);
+    public ResponseEntity<SetDTO> updateSet(@PathVariable(value = "id") Long id, @RequestBody Set set) {
+        return ResponseEntity.ok(setService.updateSetById(id, set));
     }
 
 }

@@ -1,5 +1,6 @@
 package com.springboot.workoutrack.set;
 
+import com.springboot.workoutrack.exceptions.SetNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +42,8 @@ public class SetService {
         return TRUE;
     }
 
-    public SetDTO updateSetById(Long id, Set newSet){
-        Set set = setRepository.getReferenceById(id);
+    public SetDTO updateSetById(Long id, Set newSet) {
+        Set set = setRepository.findById(id).orElseThrow(() -> new SetNotFoundException("Set not found"));
         set.setRepetition(newSet.getRepetition());
         set.setRest(newSet.getRest());
         set.setWeight(newSet.getWeight());
