@@ -10,7 +10,7 @@ import java.util.Date;
 
 @ControllerAdvice
 public class ErrorHandler {
-    @ExceptionHandler(SetNotFoundException.class)
+    @ExceptionHandler({SetNotFoundException.class, ExerciseNotFoundException.class})
     public ResponseEntity<ApiErrorObject> handleSetNotFoundException(SetNotFoundException ex, WebRequest request) {
         ApiErrorObject apiErrorObject = new ApiErrorObject();
         apiErrorObject.setStatusCode(HttpStatus.NOT_FOUND.value());

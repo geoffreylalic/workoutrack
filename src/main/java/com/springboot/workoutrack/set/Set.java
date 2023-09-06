@@ -18,6 +18,13 @@ public class Set {
     @ManyToOne
     private Exercise exercise;
 
+    public Exercise getExercise() {
+        return exercise;
+    }
+
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
+    }
 
     public Set(int repetition, Duration  rest, float weight) {
         this.repetition = repetition;

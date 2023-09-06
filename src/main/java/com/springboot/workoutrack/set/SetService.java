@@ -29,8 +29,7 @@ public class SetService {
     }
 
     public SetDTO getSetById(Long id) {
-        Set set = setRepository.getReferenceById(id);
-        return this.setDTOMapper.apply(set);
+        return setRepository.findById(id).map(setDTOMapper).orElseThrow(()-> new SetNotFoundException("Set not found with this given id."));
     }
 
     public SetDTO createSet(Set set) {

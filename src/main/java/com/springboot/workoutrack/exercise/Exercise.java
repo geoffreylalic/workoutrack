@@ -1,6 +1,7 @@
 package com.springboot.workoutrack.exercise;
 
 import com.springboot.workoutrack.set.Set;
+import com.springboot.workoutrack.set.SetDTO;
 import com.springboot.workoutrack.workout.Workout;
 import jakarta.persistence.*;
 
@@ -55,5 +56,21 @@ public class Exercise {
 
     public void setTarget_muscle(String target_muscle) {
         this.target_muscle = target_muscle;
+    }
+
+    public List<Set> getSets() {
+        return sets;
+    }
+
+    public void setSets(List<Set> sets) {
+        this.sets = sets;
+    }
+
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
+    }
+
+    public Workout getWorkout() {
+        return workout;
     }
 }
