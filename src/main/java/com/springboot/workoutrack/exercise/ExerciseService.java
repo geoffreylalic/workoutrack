@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.util.List;
 
 @Service
+@Transactional
 public class ExerciseService {
     private ExerciseRepository exerciseRepository;
     private ExerciseDTOMapper exerciseDTOMapper;
@@ -35,7 +36,6 @@ public class ExerciseService {
         return exerciseRepository.findById(id).map(exerciseDTOMapper).orElseThrow(()-> new ExerciseNotFoundException("Exercise not found for this given id."));
     }
 
-    @Transactional
     public ExerciseDTO createExercise(Exercise newExercise){
         Exercise exercise  = exerciseRepository.save(newExercise);
         for (Set set: newExercise.getSets()){

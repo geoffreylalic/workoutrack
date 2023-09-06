@@ -28,6 +28,22 @@ public class Workout {
         this.createdAt = createdAt;
     }
 
+    public List<Exercise> getExercises() {
+        return exercises;
+    }
+
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
+    }
+
+    public List<History> getHistories() {
+        return histories;
+    }
+
+    public void setHistories(List<History> histories) {
+        this.histories = histories;
+    }
+
     public Workout(String name, String createdBy, LocalDateTime createdAt) {
         this.name = name;
         this.createdBy = createdBy;
