@@ -5,7 +5,9 @@ import com.springboot.workoutrack.set.SetDTO;
 import com.springboot.workoutrack.workout.Workout;
 import jakarta.persistence.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "exercise")
@@ -14,21 +16,21 @@ public class Exercise {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private String target_muscle;
+    private String targetMuscle;
     @OneToMany(mappedBy = "exercise")
     private List<Set> sets;
     @ManyToOne
     private Workout workout;
 
-    public Exercise(Long id, String name, String target_muscle) {
+    public Exercise(Long id, String name, String targetMuscle) {
         this.id = id;
         this.name = name;
-        this.target_muscle = target_muscle;
+        this.targetMuscle = targetMuscle;
     }
 
-    public Exercise(String name, String target_muscle) {
+    public Exercise(String name, String targetMuscle) {
         this.name = name;
-        this.target_muscle = target_muscle;
+        this.targetMuscle = targetMuscle;
     }
 
     public Exercise() {
@@ -42,8 +44,8 @@ public class Exercise {
         return name;
     }
 
-    public String getTarget_muscle() {
-        return target_muscle;
+    public String getTargetMuscle() {
+        return targetMuscle;
     }
 
     public void setId(Long id) {
@@ -54,8 +56,8 @@ public class Exercise {
         this.name = name;
     }
 
-    public void setTarget_muscle(String target_muscle) {
-        this.target_muscle = target_muscle;
+    public void setTargetMuscle(String targetMuscle) {
+        this.targetMuscle = targetMuscle;
     }
 
     public List<Set> getSets() {

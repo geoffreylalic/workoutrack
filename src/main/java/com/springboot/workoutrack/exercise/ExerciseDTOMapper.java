@@ -16,6 +16,6 @@ public class ExerciseDTOMapper implements Function<Exercise, ExerciseDTO> {
 
     @Override
     public ExerciseDTO apply(Exercise exercise) {
-        return new ExerciseDTO(exercise.getId(), exercise.getName(), exercise.getTarget_muscle(), exercise.getSets().stream().map(setDTOMapper).toList());
+        return new ExerciseDTO(exercise.getId(), exercise.getName(), exercise.getTargetMuscle(), exercise.getSets().stream().map(setDTOMapper).toList());
     }
 }
