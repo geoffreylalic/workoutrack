@@ -17,11 +17,13 @@ public class WorkoutService {
     private WorkoutRepository workoutRepository;
     private WorkoutDTOMapper workoutDTOMapper;
     private ExerciseRepository exerciseRepository;
+    private ExerciseService exerciseService;
     @Autowired
-    public WorkoutService(WorkoutRepository workoutRepository, WorkoutDTOMapper workoutDTOMapper, ExerciseRepository exerciseRepository) {
+    public WorkoutService(WorkoutRepository workoutRepository, WorkoutDTOMapper workoutDTOMapper, ExerciseRepository exerciseRepository, ExerciseService exerciseService) {
         this.workoutRepository = workoutRepository;
         this.workoutDTOMapper = workoutDTOMapper;
         this.exerciseRepository = exerciseRepository;
+        this.exerciseService = exerciseService;
     }
 
     public List<WorkoutDTO> getWorkouts() {
@@ -32,15 +34,32 @@ public class WorkoutService {
         return workoutRepository.findById(id).map(workoutDTOMapper).orElseThrow(()-> new WorkoutNotFoundException("Workout not found for this given id."));
     }
 
-    public WorkoutDTO updateWorkout(Long id, Workout exercise){
+    public WorkoutDTO updateWorkout(Long id, Workout newWorkout){
+        Workout foundWorkout = workoutRepository.findById(id).orElseThrow(()-> new WorkoutNotFoundException("Workout not found for this given id."));
+        if (newWorkout.getName() != null){
+            foundWorkout.setName(newWorkout.getName());
+        }
+        if (newWorkout.getCreatedBy() != null){
+            foundWorkout.setCreatedBy(newWorkout.getCreatedBy());
+        }
+        if (newWorkout.getCreatedAt() != null){
+            foundWorkout.setCreatedAt(newWorkout.getCreatedAt());
+        }
+        if (newWorkout.getExercises() != null){
+            for(Exercise exercise : newWorkout.getExercises() ){
+                exerciseService.updateExercise(exercise.getId(), exercise);
+            }
+        }
+        workoutRepository.save(newWorkout);
         return workoutRepository.findById(id).map(workoutDTOMapper).orElseThrow(()-> new WorkoutNotFoundException("Workout not found for this given id."));
     }
 
     public WorkoutDTO createWorkout(Workout newWorkout){
         Workout workout  = workoutRepository.save(newWorkout);
-        for (Exercise exercise: newWorkout.getExercises()){
-            exercise.setWorkout(workout);
-            exerciseRepository.save(exercise);
+        if (workout.getExercises() != null){
+            for (Exercise exercise: newWorkout.getExercises()){
+                exerciseService.createExerciseWorkout(exercise, workout);
+            }
         }
         return workoutDTOMapper.apply(workout);
     }

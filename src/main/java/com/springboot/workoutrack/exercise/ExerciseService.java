@@ -4,6 +4,7 @@ import com.springboot.workoutrack.exceptions.ExerciseNotFoundException;
 import com.springboot.workoutrack.set.Set;
 import com.springboot.workoutrack.set.SetRepository;
 import com.springboot.workoutrack.set.SetService;
+import com.springboot.workoutrack.workout.Workout;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,17 @@ public class ExerciseService {
         }
         return exerciseDTOMapper.apply(exercise);
     }
+
+    public ExerciseDTO createExerciseWorkout(Exercise newExercise, Workout workout) {
+        newExercise.setWorkout(workout);
+        Exercise exercise = exerciseRepository.save(newExercise);
+        for (Set set : newExercise.getSets()) {
+            set.setExercise(exercise);
+            setRepository.save(set);
+        }
+        return exerciseDTOMapper.apply(exercise);
+    }
+
 
     public Boolean deleteExercise(Long id) {
         try {
