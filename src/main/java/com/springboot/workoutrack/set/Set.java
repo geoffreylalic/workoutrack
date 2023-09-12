@@ -12,8 +12,8 @@ public class Set {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private int repetition;
-    private float weight;
+    private Integer repetition;
+    private Float weight;
     private Duration rest;
     @ManyToOne
     private Exercise exercise;
@@ -43,7 +43,7 @@ public class Set {
         this.weight = weight;
     }
 
-    public float getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
@@ -55,7 +55,7 @@ public class Set {
         return id;
     }
 
-    public int getRepetition() {
+    public Integer getRepetition() {
         return repetition;
     }
 

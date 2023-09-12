@@ -1,6 +1,9 @@
 package com.springboot.workoutrack.set;
 
 import com.springboot.workoutrack.exceptions.SetNotFoundException;
+import com.springboot.workoutrack.exercise.Exercise;
+import com.springboot.workoutrack.exercise.ExerciseDTO;
+import com.springboot.workoutrack.workout.Workout;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,9 +46,13 @@ public class SetService {
 
     public SetDTO updateSetById(Long id, Set newSet) {
         Set set = setRepository.findById(id).orElseThrow(() -> new SetNotFoundException("Set not found"));
-        set.setRepetition(newSet.getRepetition());
-        set.setRest(newSet.getRest());
-        set.setWeight(newSet.getWeight());
+        if (newSet.getRepetition() != null){
+            set.setRepetition(newSet.getRepetition());
+        }if (newSet.getRest() != null){
+            set.setRest(newSet.getRest());
+        }if(newSet.getWeight() != null){
+            set.setWeight(newSet.getWeight());
+        }
         return this.setDTOMapper.apply(setRepository.save(set));
     }
 

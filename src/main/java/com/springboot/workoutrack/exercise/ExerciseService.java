@@ -9,10 +9,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileReader;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @Transactional
@@ -42,18 +39,14 @@ public class ExerciseService {
         Exercise foundExercise = exerciseRepository.findById(id).orElseThrow(() -> new ExerciseNotFoundException("Exercise not found for this given id."));
         if (exercise.getWorkout() != null) {
             foundExercise.setWorkout(exercise.getWorkout());
-        }
-        if (exercise.getName() != null) {
+        }if (exercise.getName() != null) {
             foundExercise.setName(exercise.getName());
-        }
-        if (exercise.getTargetMuscle() != null) {
+        }if (exercise.getTargetMuscle() != null) {
             foundExercise.setTargetMuscle(exercise.getTargetMuscle());
-        }
-        if (exercise.getSets() != null) {
+        }if (exercise.getSets() != null) {
             for (Set set : exercise.getSets()){
                 setService.updateSetById(set.getId(), set);
             }
-            foundExercise.setSets(exercise.getSets());
         }
         try {
             return exerciseDTOMapper.apply(exerciseRepository.save(foundExercise));
@@ -66,7 +59,7 @@ public class ExerciseService {
         Exercise exercise = exerciseRepository.save(newExercise);
         for (Set set : newExercise.getSets()) {
             set.setExercise(exercise);
-            setRepository.save(set);
+            setService.createSet(set);
         }
         return exerciseDTOMapper.apply(exercise);
     }
@@ -76,11 +69,10 @@ public class ExerciseService {
         Exercise exercise = exerciseRepository.save(newExercise);
         for (Set set : newExercise.getSets()) {
             set.setExercise(exercise);
-            setRepository.save(set);
+            setService.updateSetById(set.getId(), set);
         }
         return exerciseDTOMapper.apply(exercise);
     }
-
 
     public Boolean deleteExercise(Long id) {
         try {
