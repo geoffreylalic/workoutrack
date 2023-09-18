@@ -1,7 +1,6 @@
 package com.springboot.workoutrack.workout;
 
 import com.springboot.workoutrack.exercise.Exercise;
-import com.springboot.workoutrack.history.History;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -18,8 +17,6 @@ public class Workout {
     private LocalDateTime createdAt;
     @OneToMany(mappedBy = "workout")
     private List<Exercise> exercises;
-    @OneToMany(mappedBy = "workout")
-    private List<History> histories;
 
     public Workout(Long id, String name, String createdBy, LocalDateTime createdAt) {
         this.id = id;
@@ -34,14 +31,6 @@ public class Workout {
 
     public void setExercises(List<Exercise> exercises) {
         this.exercises = exercises;
-    }
-
-    public List<History> getHistories() {
-        return histories;
-    }
-
-    public void setHistories(List<History> histories) {
-        this.histories = histories;
     }
 
     public Workout(String name, String createdBy, LocalDateTime createdAt) {

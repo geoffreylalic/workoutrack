@@ -1,7 +1,5 @@
 package com.springboot.workoutrack.workout;
 
-import com.springboot.workoutrack.exercise.Exercise;
-import com.springboot.workoutrack.exercise.ExerciseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
