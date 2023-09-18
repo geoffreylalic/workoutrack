@@ -1,12 +1,11 @@
 package com.springboot.workoutrack.exercise;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.springboot.workoutrack.utils.Constant.apiPrefix;
+import static com.springboot.workoutrack.configurations.Constant.apiPrefix;
 
 @RestController()
 @RequestMapping(path = apiPrefix + "exercises")

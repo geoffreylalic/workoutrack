@@ -1,14 +1,12 @@
 package com.springboot.workoutrack.set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
-import static com.springboot.workoutrack.utils.Constant.apiPrefix;
+import static com.springboot.workoutrack.configurations.Constant.apiPrefix;
 
 @RestController
 @RequestMapping(path = apiPrefix + "sets")

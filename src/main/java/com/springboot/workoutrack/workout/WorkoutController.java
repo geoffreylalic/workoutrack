@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.springboot.workoutrack.utils.Constant.apiPrefix;
+import static com.springboot.workoutrack.configurations.Constant.apiPrefix;
 
 @RestController()
 @RequestMapping(path = apiPrefix + "workouts")
